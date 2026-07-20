@@ -1,0 +1,40 @@
+.heroImg {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    background: #2C3E50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FD746C, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FD746C, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.down-arrow {
+    display: inline-block;
+    width: 50px;
+    animation: pulse 2s ease-in-out infinite;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.down-arrow:hover {
+    transform: scale(1.5) translateY(0);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes pulse {
+    0% {
+        transform: translateY(0) scale(1.2);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(10px) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0) scale(1.2);
+        opacity: 0.6;
+    }
+}

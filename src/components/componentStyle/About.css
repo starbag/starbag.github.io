@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+.aboutMe {
+    background: #2C3E50;
+    background: -webkit-linear-gradient(to top, #FD746C, #2C3E50);
+    background: linear-gradient(to top, #FD746C, #2C3E50);
+}
+
+.skewed-banner {
+    width: 280px;
+    height: 160px;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b, #8a2387, #e94057);
+    background-size: 300% 300%;
+    animation: gradientAnimation 8s ease infinite;
+    transform: skewX(-15deg);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+}
+
+.skewed-banner .content {
+    transform: skewX(15deg);
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.brush-badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 80px;
+    background: linear-gradient(135deg, #ff7e5f, #8a2387, #e94057);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    color: #ffffff;
+    text-align: center;
+}
+
+.brush-badge h2, 
+.brush-badge h3 {
+    margin: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scrollCarousel 30s linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.carousel-track:hover {
+    animation-play-state: paused;
+}
+
+#interests {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#creativity, #sport, #music {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+}
+
+.activity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    margin: 5px;
+    padding: 10px;
+}
+
+@keyframes scrollCarousel {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-70%);
+    }
+}
+
+.hobbyTitle {
+    text-align: center;
+    font-weight: bold;
+}

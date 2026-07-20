@@ -1,0 +1,28 @@
+.greetingText {
+    color: #2a4668;
+    opacity: .9;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    font-size: 8rem;
+    font-weight: 100;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 20px;
+}
+
+.animated-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(50px);
+
+    animation: flyIn 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes flyIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

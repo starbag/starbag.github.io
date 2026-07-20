@@ -1,0 +1,20 @@
+.pixel-avatar {
+    width: 128px;
+    height: 128px;
+
+    background-image: url('../../assets/mySprite.png');
+
+    background-size: 512px 128px;
+    background-repeat: no-repeat;
+
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+
+    animation: waveAnimation 1s steps(4) infinite;
+}
+
+@keyframes waveAnimation {
+    to {
+        background-position: -512px 0;
+    }
+}
