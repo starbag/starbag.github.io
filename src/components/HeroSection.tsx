@@ -8,7 +8,6 @@ import Greeting from "./Greeting";
 export default function HeroSection() {    
     return (
         <header class="heroImg">
-            <PixelAvatar/>
             <Greeting/>
 
             <img class="down-arrow" src={downArrow} alt="down arrow"/>

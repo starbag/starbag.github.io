@@ -1,28 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 .aboutMe {
+    height: 145vh;
     background: #2C3E50;
     background: -webkit-linear-gradient(to top, #FD746C, #2C3E50);
     background: linear-gradient(to top, #FD746C, #2C3E50);
-}
-
-.skewed-banner {
-    width: 280px;
-    height: 160px;
-    margin: 20px auto;
-    padding: 20px;
-    background: linear-gradient(135deg, #ff7e5f, #feb47b, #8a2387, #e94057);
-    background-size: 300% 300%;
-    animation: gradientAnimation 8s ease infinite;
-    transform: skewX(-15deg);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-}
-
-.skewed-banner .content {
-    transform: skewX(15deg);
 }
 
 @keyframes gradientAnimation {
@@ -33,28 +15,39 @@
 
 .brush-badge {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    padding: 35px 80px;
-    background: linear-gradient(135deg, #ff7e5f, #8a2387, #e94057);
+    padding: 50px 85px;
+    background: linear-gradient(13deg, #ff7e5f, #8a2387, #e94057);
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
     -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
+    mask-size: 70% 150%;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
     mask-position: center;
-    color: #ffffff;
-    text-align: center;
 }
 
-.brush-badge h2, 
-.brush-badge h3 {
+.brush-badge h2 {
+    color: transparent;
+    -webkit-text-stroke: 1px #000;
     margin: 0;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 4rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
 }
 
 .carousel-container {
@@ -73,8 +66,98 @@
     transform: translateZ(0);
 }
 
+.carousel-container,
+.carousel-track {
+    pointer-events: none;
+}
+
+.skewed-banner,
+.more-info-btn {
+    pointer-events: auto;
+}
+
+.more-info-btn {
+    position: relative;
+    border: none;
+    background-color: inherit;
+    font-size: 1.6rem;
+    font-weight: bold;
+    opacity: .7;
+    cursor: pointer;
+    transition: transform .3s ease-in-out, opacity .2s ease-in, color .2s linear;
+}
+
+.more-info-btn:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    color: inherit;
+}
+
+.more-info {
+    position: relative;
+    text-align: center;
+    padding: 0 10px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(30px);
+    transition: max-height 0.3s, opacity .3s ease, visibility .3s ease;
+}
+
+.more-info.visible {
+    max-height: 150px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.more-info p {
+    font-size: 1.1rem;
+}
+
 .carousel-track:hover {
     animation-play-state: paused;
+}
+
+.skewed-banner {
+    position: relative;
+    width: 25vw;
+    height: 25vh;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b, #8a2387, #e94057);
+    background-size: 300% 300%;
+    animation: gradientAnimation 8s ease infinite;
+    transform: skewX(-15deg);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    transition: transform .2s ease-in-out;
+}
+
+.skewed-banner:hover {
+    animation-play-state: paused;
+    transform: skewX(-15deg) scale(1.1);
+}
+
+.skewed-banner:hover .more-info-btn {
+   transform: translateX(30px);
+}
+
+.skewed-banner .content {
+    transform: skewX(15deg);
+}
+
+.skewed-banner .more-info {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+
+.skewed-banner:hover .more-info {
+    opacity: 1;
+    visibility: visible;
 }
 
 #interests {
@@ -90,6 +173,7 @@
 }
 
 .activity {
+    height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -107,7 +191,6 @@
     }
 }
 
-.hobbyTitle {
+.hobbyTitle, .hobbyDescription {
     text-align: center;
-    font-weight: bold;
 }

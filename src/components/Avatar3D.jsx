@@ -101,7 +101,7 @@ export default function Avatar3D(props) {
     return (
         <div
             ref={canvasContainer}
-            style={{width: "300px", height: "500px", cursor: "grab"}}
+            style={{width: "20vw", height: "45vh", cursor: "grab"}}
         />
     );
 }
