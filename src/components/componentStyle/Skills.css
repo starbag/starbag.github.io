@@ -1,51 +1,67 @@
+/* Skills section layout with a smooth color transition linking from the previous section */
 .skills-section {
     display: flex;
     flex-direction: column;
     padding: 20px;
     overflow: hidden;
     box-sizing: border-box;
+    background: linear-gradient(180deg, #FFB347 0%, #A83366 25%, #612154 60%, #201A30 85%, #0F2035 100%);
+    color: white;
+    font-family: 'Inter', sans-serif;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-size: 42px;
+    font-weight: 800;
+    color: #FFFFFF;
+    text-shadow: 0 0 15px rgba(255, 42, 109, 0.8), 0 0 30px rgba(255, 179, 71, 0.6);
 }
 
 .skills-group {
     display: flex;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 12px;
-    padding: 15px;
+    background: rgba(20, 8, 35, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 209, 102, 0.25);
+    border-radius: 16px;
+    padding: 20px;
     min-width: 320px;
     flex-shrink: 0;
     text-align: center;
     align-items: stretch;
     gap: 20px;
     width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 
+                0 0 20px rgba(255, 94, 126, 0.2);
+    box-sizing: border-box;
 }
 
 .skills-group-text {
     width: 100%;
     padding: 15px;
     text-align: center;
+    color: #FFE5B4;
+    font-weight: 500;
 }
 
-/* Horizontal scroll grid */
+/* Horizontal scroll grid with extra vertical padding to prevent clipping on hover */
 .skills-grid {
     text-align: center;
     display: flex;
     flex-direction: row;
     gap: 20px;
-    padding-bottom: 20px;
+    padding: 10px 10px 30px 10px;
     width: 100%;
-    
     overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
     user-select: none;
     scroll-behavior: auto;
-    flex-wrap: nowrap; /* Prevent cards from wrapping */
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 .skills-grid::-webkit-scrollbar {
@@ -53,12 +69,12 @@
 }
 
 .skills-grid::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
 
 .skills-grid::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 94, 126, 0.5);
     border-radius: 4px;
 }
 
@@ -66,6 +82,7 @@
     cursor: grabbing;
 }
 
+/* Fixed height constraint with internal card scrolling if content is taller */
 .skill-card {
     position: relative;
     overflow: hidden;
@@ -73,25 +90,37 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding: 20px;
-    margin: 15px;
-    border-radius: 8px;
+    padding: 24px;
+    margin: 10px 5px;
+    border-radius: 12px;
     width: 280px;
-    flex-shrink: 0; /* Prevent cards from shrinking */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
-    background: linear-gradient(to top, #FD746C, #557ea6);
-    transition: transform 0.3s ease-in-out;
+    height: 380px; /* Fixed height so all cards stay identical and uniform */
+    flex-shrink: 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    background: rgba(30, 12, 50, 0.85);
+    border: 1px solid rgba(255, 94, 126, 0.3);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    will-change: transform;
 }
 
-/* Gradient overlay for hover effect */
+/* Internal scrollbar for oversized card content to keep dimensions clean */
+.skill-card::-webkit-scrollbar {
+    width: 4px;
+}
+
+.skill-card::-webkit-scrollbar-thumb {
+    background: rgba(255, 209, 102, 0.4);
+    border-radius: 4px;
+}
+
+/* Gradient overlay for hover effect with smooth transition */
 .skill-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, #FD746C, #557ea6);
+    background: linear-gradient(135deg, #FF5E7E, #FFB347);
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
 }
 
@@ -101,11 +130,15 @@
 }
 
 .skill-card:hover {
-    transform: scale(1.02);
+    transform: translateY(-6px) scale(1.02);
+    border-color: rgba(255, 209, 102, 0.8);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 
+                0 0 20px rgba(255, 179, 71, 0.4);
+    z-index: 10;
 }
 
 .skill-card:hover::before {
-    opacity: 1;
+    opacity: 0.15;
 }
 
 .skill-card img.card-main-icon {
@@ -113,12 +146,15 @@
     height: 60px;
     object-fit: contain;
     margin-bottom: 15px;
+    filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.4));
 }
 
 .technologies-list {
     padding: 0;
     margin: 10px 0 0 0;
     width: 100%;
+    overflow-y: auto; /* Enables inner scrolling if technology lists are too long */
+    max-height: 200px;
 }
 
 .technologies-item {
@@ -126,8 +162,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 6px 0;
+    padding: 8px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #FFF5E1;
 }
 
 .technologies-item:last-child {
@@ -139,6 +176,7 @@
     margin-right: 10px;
     width: 24px;
     text-align: center;
+    color: #FFD166;
 }
 
 .skills-group-heading {
@@ -146,54 +184,69 @@
     justify-content: center;
     align-items: center;
     gap: 15px;
-    padding: 12px 20px;
+    padding: 14px 20px;
     cursor: pointer;
     position: relative;
-    background: rgba(255, 255, 255, 0.03); /* Subtle base background */
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 209, 102, 0.2);
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    color: #FFD166;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* Gradient overlay layer for smooth transition */
+/* Gradient background expansion animation for collapsible headers */
 .skills-group-heading::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #FD746C 0%, #557ea6 100%);
+    background: linear-gradient(135deg, #FF5E7E 0%, #FFB347 100%);
     opacity: 0;
-    transition: opacity 0.4s ease-in-out;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease-in-out, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
 }
 
-/* Keep content above the gradient */
 .skills-group-heading > * {
     position: relative;
     z-index: 1;
 }
 
-/* Hover state */
 .skills-group-heading:hover {
     transform: translateY(-2px);
-    border-color: rgba(253, 116, 108, 0.4);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 209, 102, 0.6);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    color: #FFFFFF;
 }
 
 .skills-group-heading:hover::before {
-    opacity: 0.15;
+    opacity: 0.2;
+    transform: scale(1);
 }
 
-/* Active / Expanded state */
+/* Smooth expansion animation effect when active/clicked */
 .skills-group-heading.active {
-    border-color: #FD746C;
-    box-shadow: 0 6px 16px rgba(253, 116, 108, 0.25);
+    border-color: #FFD166;
+    box-shadow: 0 6px 16px rgba(255, 179, 71, 0.3);
+    color: #FFFFFF;
 }
 
 .skills-group-heading.active::before {
-    opacity: 1;
+    opacity: 0.35;
+    transform: scale(1);
 }
 
-.up-arrow {
+/* Single arrow smooth rotation */
+.arrow {
     width: 30px;
+    height: 30px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.skills-group-heading.active .arrow {
+    transform: rotate(180deg);
 }

@@ -122,13 +122,37 @@ export const skills = {
             icon: "/icons/engine.png"
         }
     ],
-    softSkills: [
-        { skill: "Problem Solving", icon: "/icons/problem-solving.png" },
-        { skill: "Teamwork & Collaboration", icon: "/icons/teamwork.png" },
-        { skill: "Bilingual Communication (Polish & English)", icon: "/icons/languages.png" },
-        { skill: "Rapid Self-Taught Adaptation", icon: "/icons/learning.png" },
-        { skill: "Time Management & Prioritization", icon: "/icons/time.png" },
-        { skill: "Critical Thinking", icon: "/icons/critical.png" }
+softSkills: [
+        { 
+            skill: "Problem Solving", 
+            icon: "/icons/problem-solving.png",
+            details: "Adept at breaking down complex, multifaceted challenges into manageable components, debugging issues efficiently, and engineering resilient, scalable solutions."
+        },
+        { 
+            skill: "Teamwork & Collaboration", 
+            icon: "/icons/teamwork.png",
+            details: "Thrives in cross-functional team environments, openly sharing knowledge, actively listening to peer feedback, and driving collective project goals forward."
+        },
+        { 
+            skill: "Bilingual Communication (Polish & English)", 
+            icon: "/icons/languages.png",
+            details: "Fluent in both Polish and English, enabling seamless technical documentation, smooth client interactions, and effective collaboration across international teams."
+        },
+        { 
+            skill: "Rapid Self-Taught Adaptation", 
+            icon: "/icons/learning.png",
+            details: "Highly autonomous learner capable of quickly picking up emerging technologies, frameworks, and workflows to meet fast-paced project requirements."
+        },
+        { 
+            skill: "Time Management & Prioritization", 
+            icon: "/icons/time.png",
+            details: "Exceptional at organizing daily workloads, estimating task durations accurately, and balancing multiple concurrent deadlines without compromising quality."
+        },
+        { 
+            skill: "Critical Thinking", 
+            icon: "/icons/critical.png",
+            details: "Approaches obstacles with analytical objectivity, evaluating alternative architectures and strategies to make informed, long-term technical choices."
+        }
     ],
     others: [
         { 
@@ -159,65 +183,71 @@ export const skills = {
     ],
 };
 
-export const hardwareShowcase = [
-        {
-            model: "geforce_rtx_3060_ti_founders_edition",
-            title: "NVIDIA GeForce RTX 3060 Ti",
-            description: "Founders Edition graphics card built for high-performance rendering and gaming.",
-            specs: "Ampere architecture, 8GB GDDR6, Ray Tracing cores."
-        },
-        {
-            model: "amd_ryzen_7_7800x3d",
-            title: "AMD Ryzen 7 7800X3D",
-            description: "The ultimate gaming processor featuring 3D V-Cache technology.",
-            specs: "8 Cores, 16 Threads, up to 5.0 GHz boost."
-        },
-        {
-            model: "corsair_vengeance_rt",
-            title: "Corsair Vengeance RT 32GB",
-            description: "High-performance DDR4/DDR5 memory with striking LED lighting.",
-            specs: "Optimized for high frequencies and low latency."
-        },
-        {
-            model: "dark_rock_pro_4",
-            title: "Be Quiet! Dark Rock Pro 4",
-            description: "Massive dual-tower CPU cooler offering virtually silent cooling operation.",
-            specs: "2 Silent Wings PWM fans, 7 copper heat pipes."
-        },
-        {
-            model: "gigabyte_x570s_elite",
-            title: "Gigabyte X570S Elite",
-            description: "Advanced motherboard with robust power delivery and passive chipset cooling.",
-            specs: "PCIe 4.0 support, dual M.2 connectors, 2.5GbE LAN."
-        },
-        {
-            model: "be_quiet_straight_power_11",
-            title: "Be Quiet! Straight Power 11",
-            description: "80 PLUS Gold certified power supply with near-silent operation.",
-            specs: "Fully modular cable management, high-end components."
-        },
-        {
-            model: "be_quiet_pure_base_500",
-            title: "Be Quiet! Pure Base 500",
-            description: "Compact and sleek PC chassis focused on airflow and sound insulation.",
-            specs: "Tempered glass side panel, optimized modular design."
-        },
-        {
-            model: "steelseries_rival_3",
-            title: "SteelSeries Rival 3",
-            description: "Ergonomic gaming mouse built with true 1-to-1 tracking sensor.",
-            specs: "Mechanical switches rated for 60 million clicks."
-        },
-        {
-            model: "logitech_mx_keys",
-            title: "Logitech MX Keys",
-            description: "Advanced wireless illuminated keyboard designed for productivity.",
-            specs: "Spherically-dished keys, smart illumination, multi-device."
-        },
-        {
-            model: "iiyama_g_master",
-            title: "Iiyama G-Master GB3481WQSU",
-            description: "Ultra-wide gaming monitor delivering immersive visual expanses.",
-            specs: "34-inch UWQHD, high refresh rate, AMD FreeSync."
-        }
-]
+export const hardware = [
+    {
+        model: "geforce_rtx_3080_graphics_card",
+        title: "NVIDIA GeForce RTX 3060 12GB VRAM",
+        description: "High-performance graphics card built for high-end rendering and gaming.",
+        specs: "Ampere architecture, 10GB/12GB GDDR6X, Ray Tracing cores.",
+    },
+    {
+        model: "amd_ryzen_7_7800x3d",
+        title: "AMD Ryzen 7 7800X3D",
+        description: "The ultimate gaming processor featuring 3D V-Cache technology.",
+        specs: "8 Cores, 16 Threads, up to 5.0 GHz boost.",
+    },
+    {
+        model: "ram_corsair_vengeance_ddr4_rgb_pro",
+        title: "Corsair Vengeance Pro",
+        description: "High-performance DDR4/DDR5 memory with striking LED lighting.",
+        specs: "Optimized for high frequencies and low latency.",
+    },
+    {
+        model: "liquid_cpu_cooling",
+        title: "Corsair iCUE H150i Elite LCD",
+        description: "Advanced liquid cooling system ensuring optimal thermal performance.",
+        specs: "High-efficiency pump, optimized radiator fans.",
+    },
+    {
+        model: "x570_prime_motherboard_hq_pbr",
+        title: "ASUS Prime X570 Motherboard",
+        description: "Advanced motherboard with robust power delivery and stable performance.",
+        specs: "PCIe 4.0 support, robust VRM cooling, high-end audio.",
+    },
+    {
+        model: "power_supply_aerocool_kcas_500w_atx",
+        title: "Aerocool KCAS 500W ATX",
+        description: "Reliable power supply unit designed for stable power distribution.",
+        specs: "500W output, ATX standard, efficient cooling fan.",
+    },
+    {
+        model: "samsung_990_pro_ssd",
+        title: "Samsung 990 Pro SSD",
+        description: "Lightning-fast NVMe M.2 solid-state drive for extreme data speeds.",
+        specs: "PCIe 4.0, ultra-high read/write speeds, high endurance.",
+    },
+    {
+        model: "low_poly_steel_series_data_mouse",
+        title: "SteelSeries Rival 3",
+        description: "Ergonomic gaming mouse built with precise tracking sensor.",
+        specs: "Low-poly design, smooth glide feet, responsive switches.",
+    },
+    {
+        model: "logitech_mx_keys",
+        title: "Logitech MX Keys",
+        description: "Advanced wireless illuminated keyboard designed for productivity.",
+        specs: "Spherically-dished keys, smart illumination, multi-device.",
+    },
+    {
+        model: "rigged_monitor_iiyama_gb2770hsu_free_download",
+        title: "Iiyama G-Master GCB3481WQSU",
+        description: "High-refresh gaming monitor delivering smooth and immersive visuals.",
+        specs: "27-inch FHD, high refresh rate, fast IPS panel.",
+    },
+    {
+        model: "headphones",
+        title: "Logitech G Pro X 2 Lightspeed",
+        description: "Immersive audio headset for precise directional sound and comfort.",
+        specs: "Over-ear design, clear acoustics, noise isolation.",
+    },
+];

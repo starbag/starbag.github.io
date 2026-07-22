@@ -11,7 +11,7 @@ export default function Home() {
       <HeroSection/>
       <About/>
       <Skills/>
-      <HardwareShowcase model="rtx3060ti"/>
+      <HardwareShowcase/>
     </>
   );
 }

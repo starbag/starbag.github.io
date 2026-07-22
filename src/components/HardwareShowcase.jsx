@@ -1,108 +1,23 @@
-import {onMount, onCleanup, createEffect} from 'solid-js';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import HardwareModel from './HardwareModel';
 
-export default function HardwareShowcase(props) {
-    let canvasContainer;
-    let mixer;
-    let currentModel = null;
-    let scene, camera, renderer, controls;
-    const clock = new THREE.Clock();
+import { hardware } from '~/data/activitiesData';
+import './componentStyle/HardwareShowcase.css'
 
-    const loadModel = (modelName) => {
-        if (!modelName) return;
-
-        const loader = new GLTFLoader();
-        loader.load(`/models/hardware/${modelName}.glb`, (gltf) => {
-            if (currentModel) {
-                scene.remove(currentModel);
-            }
-
-            currentModel = gltf.scene;
-
-            const box = new THREE.Box3().setFromObject(currentModel);
-            const center = box.getCenter(new THREE.Vector3());
-            currentModel.position.sub(center);
-
-            scene.add(currentModel);
-
-            if (gltf.animations && gltf.animations.length > 0) {
-                mixer = new THREE.AnimationMixer(currentModel);
-                const action = mixer.clipAction(gltf.animations[0]);
-                action.play();
-            } else {
-                mixer = null;
-            }
-        }, undefined, (error) => {
-            console.error("Error loading hardware 3D model", error);
-        });
-    };
-
-    onMount(() => {
-        scene = new THREE.Scene();
-        
-        camera = new THREE.PerspectiveCamera(
-            35, 
-            canvasContainer.clientWidth / canvasContainer.clientHeight, 
-            0.1, 
-            1000
-        );
-        camera.position.set(0, 1.5, 3);
-
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-        canvasContainer.appendChild(renderer.domElement);
-
-        controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-        directionalLight.position.set(5, 5, 5);
-        scene.add(directionalLight);
-
-        loadModel(props.model);
-
-        let animationFrameId;
-        const animate = () => {
-            animationFrameId = requestAnimationFrame(animate);
-            
-            const delta = clock.getDelta();
-            if (mixer) mixer.update(delta);
-
-            controls.update();
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        const handleResize = () => {
-            if (!canvasContainer) return;
-            camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
-        };
-        window.addEventListener('resize', handleResize);
-
-        onCleanup(() => {
-            window.removeEventListener('resize', handleResize);
-            cancelAnimationFrame(animationFrameId);
-            renderer?.dispose();
-        });
-    });
-
-    createEffect(() => {
-        if (props.model && scene) {
-            loadModel(props.model);
-        }
-    });
+export default function HardwareShowcase() {
 
     return (
-        <div
-            ref={canvasContainer}
-            style={{width: "20vw", height: "45vh", cursor: "grab"}}
-        />
-    );
+        <section class="setup-showcase">
+            <h3 class='section-title'>Showcase</h3>
+            <div class='hardware-cards'>
+                {
+                    hardware.map((el) => (
+                        <div class='hardware-card'>
+                            <HardwareModel model={el.model} fov={el.fov}/>
+                            <h4 class='hardware-name'>{el.title}</h4>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+    )
 }

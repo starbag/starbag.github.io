@@ -2,7 +2,6 @@ import { createSignal } from "solid-js";
 
 import "./componentStyle/HeroSection.css"
 import downArrow from '../assets/down-arrow.svg'
-import PixelAvatar from './PixelAvatar';
 import Greeting from "./Greeting";
 
 export default function HeroSection() {    
