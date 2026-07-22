@@ -2,6 +2,7 @@ import { Title } from "@solidjs/meta";
 import HeroSection from "~/components/HeroSection";
 import About from "~/components/About";
 import Skills from "~/components/Skills";
+import HardwareShowcase from "~/components/HardwareShowcase";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <HeroSection/>
       <About/>
       <Skills/>
+      <HardwareShowcase model="rtx3060ti"/>
     </>
   );
 }

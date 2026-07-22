@@ -3,18 +3,18 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-export default function Avatar3D(props) {
+export default function HardwareShowcase(props) {
     let canvasContainer;
     let mixer;
     let currentModel = null;
     let scene, camera, renderer, controls;
     const clock = new THREE.Clock();
 
-    const loadAnimation = (animName) => {
-        if (!animName) return;
+    const loadModel = (modelName) => {
+        if (!modelName) return;
 
         const loader = new GLTFLoader();
-        loader.load(`/models/avatar/${animName}.glb`, (gltf) => {
+        loader.load(`/models/hardware/${modelName}.glb`, (gltf) => {
             if (currentModel) {
                 scene.remove(currentModel);
             }
@@ -35,7 +35,7 @@ export default function Avatar3D(props) {
                 mixer = null;
             }
         }, undefined, (error) => {
-            console.error("Error loading 3D model", error);
+            console.error("Error loading hardware 3D model", error);
         });
     };
 
@@ -64,7 +64,7 @@ export default function Avatar3D(props) {
         directionalLight.position.set(5, 5, 5);
         scene.add(directionalLight);
 
-        loadAnimation(props.animation);
+        loadModel(props.model);
 
         let animationFrameId;
         const animate = () => {
@@ -79,6 +79,7 @@ export default function Avatar3D(props) {
         animate();
 
         const handleResize = () => {
+            if (!canvasContainer) return;
             camera.aspect = canvasContainer.clientWidth / canvasContainer.clientHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(canvasContainer.clientWidth, canvasContainer.clientHeight);
@@ -88,13 +89,13 @@ export default function Avatar3D(props) {
         onCleanup(() => {
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationFrameId);
-            renderer.dispose();
+            renderer?.dispose();
         });
     });
 
     createEffect(() => {
-        if (props.animation && scene) {
-            loadAnimation(props.animation);
+        if (props.model && scene) {
+            loadModel(props.model);
         }
     });
 
