@@ -26,6 +26,7 @@
 }
 
 .hardware-card {
+    position: relative;
     background: rgba(25, 10, 45, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -42,13 +43,45 @@
         box-shadow: 0 12px 40px 0 rgba(15, 5, 29, 0.5), 
                     0 0 25px rgba($miami-cyan, 0.3);
     }
+
+    .hardware-name {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 600;
+        color: $miami-yellow;
+        margin-top: 16px;
+        letter-spacing: 0.5px;
+    }
 }
 
-.hardware-name {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    color: $miami-yellow;
-    margin-top: 16px;
-    letter-spacing: 0.5px;
+.active-item {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 5, 29, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .active-item-content {
+        @include miami-glass(rgba($miami-yellow, 0.6), 16px);
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 500px;
+        text-align: center;
+        
+        h2 {
+            color: $miami-yellow;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: $text-light;
+            font-size: 1.1rem;
+        }
+    }
 }

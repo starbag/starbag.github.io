@@ -33,6 +33,9 @@ html, body {
 
 /* About Me section with a smooth, flowing Miami sunset gradient transition */
 .aboutMe {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center child elements horizontally */
     height: 145vh;
     background: linear-gradient(180deg, #291035 0%, $miami-purple-dark 15%, $miami-purple-mid 45%, $miami-pink 75%, $miami-orange 100%);
     color: $text-light;
@@ -42,38 +45,50 @@ html, body {
 /* Custom shaped Miami neon badge container */
 .brush-badge {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    padding: 50px 85px;
+    width: 60%;
+    height: 12vh;
+    padding: 15px 0;
+    margin: 40px auto; /* Centers the element horizontally inside flex/block layout */
     background: $gradient-badge;
     box-shadow: 0 0 30px rgba($miami-pink-neon, 0.5), inset 0 0 20px rgba($miami-orange, 0.4);
     border: 2px solid rgba($miami-yellow, 0.6);
     
-    // Mask properties
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
-    -webkit-mask-size: 100% 100%;
-    mask-size: 70% 150%;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-
-    /* Neon glow effect for icons inside the badge */
-    svg, img {
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
-    }
+    // Combine transformations properly so they don't overwrite each other
+    transform: skewX(-25deg);
+    
+    // Apply slide animation while maintaining the skew transform state
+    animation: slide 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    @include gpu-accelerate();
 
     /* Typography styling for badge headers with outline and pulse effect */
     h2 {
         color: transparent;
-        -webkit-text-stroke: 1px $miami-yellow;
+        -webkit-text-stroke: 1px $miami-purple-mid;
         margin: 0;
         font-family: 'Space Grotesk', sans-serif;
-        font-size: 4rem;
-        animation: pulse-badge 2s ease-in-out infinite;
+        font-size: 3.5rem;
+        font-weight: bold;
+        animation: pulse-badge 2.3s linear infinite;
         text-shadow: 0 0 25px rgba($miami-yellow, 0.6);
+        
+        // Counter-skew text so it remains upright and readable
+        transform: skewX(25deg);
     }
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(-50px) skewX(-25deg);
+        opacity: 0;
+    }
+    
+    to {
+        transform: translateX() skewX(-25deg);
+        opacity: 1;
+    }
+
 }
 
 /* Carousel container setup for horizontal scrolling content */

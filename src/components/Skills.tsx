@@ -1,6 +1,6 @@
 import { createSignal, onMount, onCleanup, createEffect } from "solid-js";
 import './componentStyle/Skills.scss';
-import { skills } from '../data/activitiesData';
+import { skills } from '../data/skillsData';
 
 import downArrow from "../assets/down-arrow.svg";
 

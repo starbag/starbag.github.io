@@ -38,7 +38,6 @@ export default function About() {
         <section class='aboutMe'>
             <div class="brush-badge">
                 <h2>About Me</h2>
-                <img src={brush} alt="brush" width="135px" />
             </div>
             
             <div class="carousel-container">
