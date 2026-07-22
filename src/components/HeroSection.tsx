@@ -1,6 +1,5 @@
-import { createSignal } from "solid-js";
+import "./componentStyle/HeroSection.scss"
 
-import "./componentStyle/HeroSection.css"
 import downArrow from '../assets/down-arrow.svg'
 import Greeting from "./Greeting";
 

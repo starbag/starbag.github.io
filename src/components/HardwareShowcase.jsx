@@ -1,13 +1,13 @@
 import HardwareModel from './HardwareModel';
 
 import { hardware } from '~/data/activitiesData';
-import './componentStyle/HardwareShowcase.css'
+import './componentStyle/HardwareShowcase.scss'
 
 export default function HardwareShowcase() {
 
     return (
         <section class="setup-showcase">
-            <h3 class='section-title'>Showcase</h3>
+            <h3 class='showcase-section-title'>Showcase</h3>
             <div class='hardware-cards'>
                 {
                     hardware.map((el) => (

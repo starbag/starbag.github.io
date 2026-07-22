@@ -1,0 +1,318 @@
+@import 'theme';
+
+/* Skills section layout with a smooth background expansion */
+.skills-section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: linear-gradient(180deg, $miami-orange 0%, $miami-pink 25%, $miami-purple-mid 60%, $miami-purple-deep 85%, $miami-purple-dark 100%);
+    color: $text-white;
+    font-family: 'Inter', sans-serif;
+}
+
+.skills-section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 42px;
+    font-weight: 800;
+    color: $text-white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba($miami-pink-neon, 0.6);
+    transition: all 0.3s ease;
+
+    &.lvl-1-heading {
+        color: $miami-orange;
+        font-size: 40px;
+        text-shadow: 0 0 10px rgba($miami-orange, 0.6), 0 0 20px rgba($miami-orange, 0.4);
+    }
+
+    &.lvl-2-heading {
+        color: $miami-pink-neon;
+        font-size: 35px;
+        text-shadow: 0 0 10px rgba($miami-pink-neon, 0.8), 0 0 25px rgba($miami-pink-neon, 0.5);
+    }
+
+    &.lvl-3-heading {
+        color: $miami-cyan;
+        font-size: 30px;
+        text-shadow: 0 0 10px rgba($miami-cyan, 0.8), 0 0 25px rgba($miami-cyan, 0.5);
+    }
+}
+
+.skills-group {
+    display: flex;
+    flex-direction: column;
+    @include miami-glass(rgba($miami-yellow, 0.25), 12px);
+    border-radius: 16px;
+    padding: 20px;
+    min-width: 320px;
+    flex-shrink: 0;
+    text-align: center;
+    align-items: stretch;
+    gap: 20px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 
+                0 0 20px rgba($miami-pink, 0.2);
+    box-sizing: border-box;
+    margin-bottom: 25px;
+}
+
+.skills-group-text {
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    color: $text-cream;
+    font-weight: 500;
+}
+
+/* Smooth expandable container animation */
+.skills-group-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;
+    overflow: hidden;
+    padding: 0;
+
+    &.active {
+        grid-template-rows: 1fr;
+        padding: 10px 0;
+
+        .skills-group-inner {
+            opacity: 1;
+        }
+    }
+}
+
+.skills-group-inner {
+    min-height: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out 0.1s;
+}
+
+/* Horizontal scroll grid */
+.skills-grid {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 10px 10px 30px 10px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: auto;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($miami-pink, 0.5);
+        border-radius: 4px;
+    }
+
+    &.active {
+        cursor: grabbing;
+    }
+}
+
+/* Fixed height constraint with internal card scrolling */
+.skill-card {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 24px;
+    margin: 10px 5px;
+    border-radius: 12px;
+    width: 280px;
+    height: 380px;
+    flex-shrink: 0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    background: rgba($miami-purple-deep, 0.85);
+    border: 1px solid rgba($miami-pink, 0.3);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    @include gpu-accelerate();
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba($miami-yellow, 0.4);
+        border-radius: 4px;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, $miami-pink, $miami-orange);
+        opacity: 0;
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 0;
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    &:hover {
+        transform: translateY(-6px) scale(1.02);
+        border-color: rgba($miami-yellow, 0.8);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 
+                    0 0 20px rgba($miami-orange, 0.4);
+        z-index: 10;
+
+        &::before {
+            opacity: 0.15;
+        }
+    }
+
+    img.card-main-icon {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 15px;
+        filter: drop-shadow(0 0 8px rgba($miami-yellow, 0.4));
+    }
+
+    h4 {
+        color: $text-white;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: $text-cream;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        text-align: center;
+        margin-top: 5px;
+    }
+}
+
+.technologies-list {
+    padding: 0;
+    margin: 10px 0 0 0;
+    width: 100%;
+}
+
+.technologies-item {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: $text-light;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    i {
+        font-size: 20px;
+        margin-right: 10px;
+        width: 24px;
+        text-align: center;
+        color: $miami-yellow;
+    }
+}
+
+/* Completely fixed heading background with smooth pseudo-element sliding animation */
+.skills-group-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 20px;
+    cursor: pointer;
+    position: relative;
+    background: rgba($miami-purple-deep, 0.85);
+    border-radius: 10px;
+    border: 1px solid rgba($miami-yellow, 0.25);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+
+    h3 {
+        margin: 0;
+        color: $miami-yellow;
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+        transition: color 0.3s ease;
+    }
+
+    /* Gradient expansion using absolute positioning and smooth transform */
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, $miami-pink 0%, $miami-orange 100%);
+        opacity: 0;
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+        z-index: 0;
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    &:hover {
+        border-color: rgba($miami-yellow, 0.7);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        transform: translateY(-2px);
+
+        h3 {
+            color: $text-white;
+        }
+
+        &::before {
+            opacity: 0.25;
+            transform: translateY(0);
+        }
+    }
+
+    /* Active / Expanded state with smooth sliding fill */
+    &.active {
+        border-color: $miami-yellow;
+        box-shadow: 0 8px 25px rgba($miami-orange, 0.35);
+        transform: translateY(-2px);
+
+        h3 {
+            color: $text-white;
+        }
+
+        &::before {
+            opacity: 0.45;
+            transform: translateY(0);
+        }
+
+        .arrow {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+/* Arrow rotation */
+.arrow {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
+}

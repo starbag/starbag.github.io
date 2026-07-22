@@ -1,4 +1,4 @@
-import "./componentStyle/Greeting.css"
+import "./componentStyle/Greeting.scss"
 
 export default function Greeting() {
     const text = "welcome";

@@ -1,19 +1,19 @@
+@import 'theme';
+
 .setup-showcase {
-    background: linear-gradient(180deg, #0F2035 0%, #150A24 50%, #0F051D 100%);
+    background: linear-gradient(180deg, $miami-purple-dark 0%, $miami-purple-deep 50%, #0F051D 100%);
     padding: 80px 20px;
-    color: #FFFFFF;
+    color: $text-white;
     font-family: 'Inter', sans-serif;
 }
 
-.section-title {
+.showcase-section-title {
     font-size: 42px;
     font-weight: 800;
     text-align: center;
     margin-bottom: 50px;
-    background: linear-gradient(135deg, #FF2A6D 0%, #FFB800 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 30px rgba(255, 42, 109, 0.4);
+    @include miami-gradient-text($gradient-title);
+    text-shadow: 0 0 30px rgba($miami-pink-neon, 0.4);
     letter-spacing: 1px;
 }
 
@@ -29,26 +29,26 @@
     background: rgba(25, 10, 45, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(5, 217, 232, 0.2);
+    border: 1px solid rgba($miami-cyan, 0.2);
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 8px 32px 0 rgba(15, 5, 29, 0.37), 
-                0 0 15px rgba(255, 42, 109, 0.15);
+                0 0 15px rgba($miami-pink-neon, 0.15);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
 
-.hardware-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(5, 217, 232, 0.6);
-    box-shadow: 0 12px 40px 0 rgba(15, 5, 29, 0.5), 
-                0 0 25px rgba(5, 217, 232, 0.3);
+    &:hover {
+        transform: translateY(-8px);
+        border-color: rgba($miami-cyan, 0.6);
+        box-shadow: 0 12px 40px 0 rgba(15, 5, 29, 0.5), 
+                    0 0 25px rgba($miami-cyan, 0.3);
+    }
 }
 
 .hardware-name {
     text-align: center;
     font-size: 20px;
     font-weight: 600;
-    color: #FFD166;
+    color: $miami-yellow;
     margin-top: 16px;
     letter-spacing: 0.5px;
 }

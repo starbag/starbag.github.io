@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js';
 import Avatar3D from './Avatar3D';
 import brush from '../assets/brush.svg';
 import { activitiesData } from '../data/activitiesData';
-import './componentStyle/About.css'
+import './componentStyle/About.scss'
 
 function ActivityItem(props: any) {
     const [showMore, setShowMore] = createSignal(false);

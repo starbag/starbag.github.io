@@ -1,20 +1,23 @@
-.pixel-avatar {
-    width: 128px;
-    height: 128px;
-
-    background-image: url('../../assets/mySprite.png');
-
-    background-size: 512px 128px;
-    background-repeat: no-repeat;
-
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
-
-    animation: waveAnimation 1s steps(4) infinite;
-}
+@import 'theme';
 
 @keyframes waveAnimation {
     to {
         background-position: -512px 0;
     }
+}
+
+.pixel-avatar {
+    width: 128px;
+    height: 128px;
+    background-image: url('../../assets/mySprite.png');
+    background-size: 512px 128px;
+    background-repeat: no-repeat;
+    
+    // Modern pixel art rendering properties
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    
+    // Performance optimization for smooth sprite sheet animation
+    @include gpu-accelerate();
+    animation: waveAnimation 1s steps(4) infinite;
 }

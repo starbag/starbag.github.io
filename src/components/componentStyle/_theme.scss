@@ -1,0 +1,49 @@
+// ==========================================
+// MIAMI VICE THEME - VARIABLES & MIXINS
+// ==========================================
+
+// --- COLOR PALETTE ---
+$miami-purple-dark: #0F051D;
+$miami-purple-deep: #201A30;
+$miami-purple-mid:  #4D1A4A;
+$miami-purple-card: rgba(20, 8, 35, 0.75);
+
+$miami-pink:       #FF5E7E;
+$miami-pink-neon:  #FF2A6D;
+$miami-orange:     #FFB347;
+$miami-yellow:     #FFD166;
+$miami-cyan:       #00F6FF;
+
+$text-white:       #FFFFFF;
+$text-light:       #FFF5E1;
+$text-cream:       #FFE5B4;
+
+// --- GRADIENTS ---
+$gradient-sunset: linear-gradient(180deg, #FFB347 0%, #FF5E7E 40%, #632354 75%, #291035 100%);
+$gradient-badge:  linear-gradient(135deg, $miami-pink-neon 0%, $miami-pink 50%, $miami-orange 100%);
+$gradient-title:  linear-gradient(135deg, $miami-pink-neon 0%, $miami-orange 100%);
+
+// --- MIXINS (HELPERS) ---
+
+// Glassmorphism effect with blur and neon border
+@mixin miami-glass($border-color: rgba($miami-yellow, 0.4), $blur: 12px) {
+    background: $miami-purple-card;
+    backdrop-filter: blur($blur);
+    -webkit-backdrop-filter: blur($blur);
+    border: 1px solid $border-color;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
+                0 0 20px rgba($miami-pink, 0.3);
+}
+
+// Consistent styling for gradient text (e.g. section headings)
+@mixin miami-gradient-text($gradient: $gradient-title) {
+    background: $gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+// GPU acceleration optimization for animated elements
+@mixin gpu-accelerate {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+}

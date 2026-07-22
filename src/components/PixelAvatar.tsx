@@ -1,4 +1,4 @@
-import "./componentStyle/PixelAvatar.css"
+import "./componentStyle/PixelAvatar.scss"
 
 export default function Header() {
 

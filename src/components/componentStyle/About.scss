@@ -1,3 +1,5 @@
+@import 'theme';
+
 /* Import Google Fonts for typography */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
@@ -9,54 +11,11 @@ html, body {
     padding: 0;
 }
 
-/* About Me section with a smooth, flowing Miami sunset gradient transition */
-.aboutMe {
-    height: 145vh;
-    background: linear-gradient(180deg, #291035 0%, #4D1A4A 35%, #FF5E7E 70%, #FFB347 100%);
-    color: #FFF5E1;
-    font-family: 'Inter', sans-serif;
-}
-
 /* Keyframe animation for fluid background shifting */
 @keyframes gradientAnimation {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
-}
-
-/* Custom shaped Miami neon badge container */
-.brush-badge {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 50px 85px;
-    background: linear-gradient(135deg, #FF2A6D 0%, #FF5E7E 50%, #FFB347 100%);
-    box-shadow: 0 0 30px rgba(255, 42, 109, 0.5), inset 0 0 20px rgba(255, 179, 71, 0.4);
-    border: 2px solid rgba(255, 209, 102, 0.6);
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
-    -webkit-mask-size: 100% 100%;
-    mask-size: 70% 150%;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-}
-
-/* Neon glow effect for icons inside the badge */
-.brush-badge svg, .brush-badge img {
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
-}
-
-/* Typography styling for badge headers with outline and pulse effect */
-.brush-badge h2 {
-    color: transparent;
-    -webkit-text-stroke: 1px #FFD166;
-    margin: 0;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 4rem;
-    animation: pulse-badge 2s ease-in-out infinite;
-    text-shadow: 0 0 25px rgba(255, 209, 102, 0.6);
 }
 
 /* Pulsing animation keyframes for the badge header */
@@ -66,12 +25,64 @@ html, body {
     100% { transform: scale(1.1); }
 }
 
+/* Keyframes for horizontal infinite scroll */
+@keyframes scrollCarousel {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-70%); }
+}
+
+/* About Me section with a smooth, flowing Miami sunset gradient transition */
+.aboutMe {
+    height: 145vh;
+    background: linear-gradient(180deg, #291035 0%, $miami-purple-dark 15%, $miami-purple-mid 45%, $miami-pink 75%, $miami-orange 100%);
+    color: $text-light;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom shaped Miami neon badge container */
+.brush-badge {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 50px 85px;
+    background: $gradient-badge;
+    box-shadow: 0 0 30px rgba($miami-pink-neon, 0.5), inset 0 0 20px rgba($miami-orange, 0.4);
+    border: 2px solid rgba($miami-yellow, 0.6);
+    
+    // Mask properties
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 120'%3E%3Cpath d='M10,60 C30,20 100,10 200,15 C300,20 370,25 390,60 C370,95 300,105 200,100 C100,95 30,100 10,60 Z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-size: 100% 100%;
+    mask-size: 70% 150%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    /* Neon glow effect for icons inside the badge */
+    svg, img {
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+    }
+
+    /* Typography styling for badge headers with outline and pulse effect */
+    h2 {
+        color: transparent;
+        -webkit-text-stroke: 1px $miami-yellow;
+        margin: 0;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 4rem;
+        animation: pulse-badge 2s ease-in-out infinite;
+        text-shadow: 0 0 25px rgba($miami-yellow, 0.6);
+    }
+}
+
 /* Carousel container setup for horizontal scrolling content */
 .carousel-container {
     width: 100%;
     overflow: hidden;
     position: relative;
     padding: 20px 0;
+    pointer-events: none;
 }
 
 /* Moving track for the carousel items */
@@ -80,20 +91,12 @@ html, body {
     gap: 30px;
     width: max-content;
     animation: scrollCarousel 30s linear infinite;
-    will-change: transform;
-    transform: translateZ(0);
-}
-
-/* Disable pointer events on track container for performance/interaction isolation */
-.carousel-container,
-.carousel-track {
+    @include gpu-accelerate();
     pointer-events: none;
-}
 
-/* Re-enable pointer events for interactive elements inside the carousel */
-.skewed-banner,
-.more-info-btn {
-    pointer-events: auto;
+    &:hover {
+        animation-play-state: paused;
+    }
 }
 
 /* Styling for buttons triggering additional info */
@@ -103,19 +106,19 @@ html, body {
     background-color: inherit;
     font-size: 1.6rem;
     font-weight: bold;
-    color: #FFFFFF;
+    color: $text-white;
     opacity: 0.95;
     cursor: pointer;
     transition: transform .3s ease-in-out, opacity .2s ease-in, color .2s linear;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-}
+    pointer-events: auto;
 
-/* Hover state for more info buttons */
-.more-info-btn:hover {
-    transform: scale(1.1);
-    opacity: 1;
-    color: #FFD166;
-    text-shadow: 0 0 15px rgba(255, 209, 102, 0.9);
+    &:hover {
+        transform: scale(1.1);
+        opacity: 1;
+        color: $miami-yellow;
+        text-shadow: 0 0 15px rgba($miami-yellow, 0.9);
+    }
 }
 
 /* Hidden block for extra details */
@@ -129,26 +132,19 @@ html, body {
     visibility: hidden;
     transform: translateY(30px);
     transition: max-height 0.3s, opacity .3s ease, visibility .3s ease;
-}
 
-/* Expanded state for extra details block */
-.more-info.visible {
-    max-height: 150px;
-    opacity: 1;
-    visibility: visible;
-}
+    &.visible {
+        max-height: 150px;
+        opacity: 1;
+        visibility: visible;
+    }
 
-/* Text style within extra info block */
-.more-info p {
-    font-size: 1.1rem;
-    color: #FFFFFF;
-    font-weight: 500;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-}
-
-/* Pause carousel animation when hovering over the track */
-.carousel-track:hover {
-    animation-play-state: paused;
+    p {
+        font-size: 1.1rem;
+        color: $text-white;
+        font-weight: 500;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    }
 }
 
 /* Glassmorphism skewed banner card design */
@@ -158,45 +154,39 @@ html, body {
     height: 25vh;
     margin: 20px auto;
     padding: 20px;
-    background: rgba(20, 8, 35, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    @include miami-glass(rgba($miami-yellow, 0.4), 12px);
     transform: skewX(-15deg);
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
-                0 0 20px rgba(255, 94, 126, 0.3);
-    border: 1px solid rgba(255, 209, 102, 0.4);
-    color: #ffffff;
+    color: $text-white;
     transition: transform .2s ease-in-out, box-shadow .2s ease-in-out, border-color .2s ease-in-out;
-}
+    pointer-events: auto;
 
-/* Hover styles for skewed banner cards */
-.skewed-banner:hover {
-    animation-play-state: paused;
-    transform: skewX(-15deg) scale(1.1);
-    border-color: rgba(255, 209, 102, 0.9);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 
-                0 0 30px rgba(255, 179, 71, 0.6);
-}
+    .content {
+        transform: skewX(15deg);
+    }
 
-.skewed-banner:hover .more-info-btn {
-   transform: translateX(30px);
-}
+    .more-info {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .3s ease, visibility .3s ease;
+    }
 
-/* Counter-skew content inside the banner to keep text straight */
-.skewed-banner .content {
-    transform: skewX(15deg);
-}
+    &:hover {
+        animation-play-state: paused;
+        transform: skewX(-15deg) scale(1.1);
+        border-color: rgba($miami-yellow, 0.9);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 
+                    0 0 30px rgba($miami-orange, 0.6);
 
-.skewed-banner .more-info {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .3s ease, visibility .3s ease;
-}
+        .more-info-btn {
+            transform: translateX(30px);
+        }
 
-.skewed-banner:hover .more-info {
-    opacity: 1;
-    visibility: visible;
+        .more-info {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
 }
 
 /* Interests layout wrapper */
@@ -223,24 +213,18 @@ html, body {
     padding: 10px;
 }
 
-/* Keyframes for horizontal infinite scroll */
-@keyframes scrollCarousel {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-70%); }
-}
-
 .hobbyTitle, .hobbyDescription {
     text-align: center;
 }
 
 .hobbyTitle {
-    color: #FFD166;
+    color: $miami-yellow;
     font-weight: 700;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .hobbyDescription {
-    color: #FFE5B4;
+    color: $text-cream;
     font-weight: 500;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
 }

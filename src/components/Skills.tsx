@@ -1,5 +1,5 @@
-import { createSignal, onMount, onCleanup } from "solid-js";
-import './componentStyle/Skills.css';
+import { createSignal, onMount, onCleanup, createEffect } from "solid-js";
+import './componentStyle/Skills.scss';
 import { skills } from '../data/activitiesData';
 
 import downArrow from "../assets/down-arrow.svg";
@@ -9,6 +9,8 @@ export default function Skills() {
     const [hardDisplay, setHardDisplay] = createSignal("none");
     const [softDisplay, setSoftDisplay] = createSignal("none");
     const [otherDisplay, setOtherDisplay] = createSignal("none");
+    const [activeBars, setActiveBars] = createSignal(0);
+
 
     // References for each scrollable grid
     let gridRefHard!: HTMLDivElement;
@@ -23,14 +25,27 @@ export default function Skills() {
     let animationId: number;
 
     // Toggle functions for sections
-    const toggleHard = () => setHardDisplay(hardDisplay() === "none" ? "flex" : "none");
-    const toggleSoft = () => setSoftDisplay(softDisplay() === "none" ? "flex" : "none");
-    const toggleOther = () => setOtherDisplay(otherDisplay() === "none" ? "flex" : "none");
+    const toggleHard = () => {
+        const isOpen = hardDisplay() === "none";
+        setHardDisplay(isOpen ? "flex" : "none");
+        setActiveBars(prev => isOpen ? prev + 1 : prev - 1);
+    };
+    
+    const toggleSoft = () => {
+        const isOpen = softDisplay() === "none";
+        setSoftDisplay(isOpen ? "flex" : "none");
+        setActiveBars(prev => isOpen ? prev + 1 : prev - 1);
+    };
+
+    const toggleOther = () => {
+        const isOpen = otherDisplay() === "none";
+        setOtherDisplay(isOpen ? "flex" : "none");
+        setActiveBars(prev => isOpen ? prev + 1 : prev - 1);
+    };
 
     // Auto-scroll loop for all grids
     onMount(() => {
         const step = () => {
-            // Auto scroll Hard Skills if not dragging and not hovered
             if (gridRefHard && !isDownHard && !isHoveredHard && hardDisplay() !== "none") {
                 gridRefHard.scrollLeft += 1;
                 if (gridRefHard.scrollLeft >= (gridRefHard.scrollWidth - gridRefHard.clientWidth)) {
@@ -38,7 +53,6 @@ export default function Skills() {
                 }
             }
 
-            // Auto scroll Soft Skills
             if (gridRefSoft && !isDownSoft && !isHoveredSoft && softDisplay() !== "none") {
                 gridRefSoft.scrollLeft += 1;
                 if (gridRefSoft.scrollLeft >= (gridRefSoft.scrollWidth - gridRefSoft.clientWidth)) {
@@ -46,7 +60,6 @@ export default function Skills() {
                 }
             }
 
-            // Auto scroll Other Skills
             if (gridRefOther && !isDownOther && !isHoveredOther && otherDisplay() !== "none") {
                 gridRefOther.scrollLeft += 1;
                 if (gridRefOther.scrollLeft >= (gridRefOther.scrollWidth - gridRefOther.clientWidth)) {
@@ -65,7 +78,16 @@ export default function Skills() {
 
     return (
         <section class='skills-section'>
-            <h2 class="section-title">My Skills</h2>
+            <h2 
+                class="skills-section-title"
+                classList={{
+                    "lvl-1-heading": activeBars() === 1,
+                    "lvl-2-heading": activeBars() === 2,
+                    "lvl-3-heading": activeBars() === 3,
+                }}
+            >
+                My Skills
+            </h2>
 
             <div class='skill-category'>
                 {/* 1. HARD SKILLS SECTION */}
@@ -79,7 +101,10 @@ export default function Skills() {
                         <img class="arrow" src={downArrow} alt="arrow" />
                     </div>
 
-                    <div class='hard-skills-body skills-card-body' style={{display: hardDisplay()}}>
+                    <div
+                        class='hard-skills-body skills-card-body skills-group-content'
+                        classList={{active: hardDisplay() !== "none"}}
+                    >
                         <div 
                             class='skills-grid' 
                             ref={gridRefHard}
@@ -119,7 +144,10 @@ export default function Skills() {
                         <img class="arrow" src={downArrow} alt="arrow" />
                     </div>
 
-                    <div class='soft-skills-body skills-card-body' style={{display: softDisplay()}}>
+                    <div
+                        class='soft-skills-body skills-card-body skills-group-content'
+                        classList={{active: softDisplay() !== "none"}}
+                    >
                         <div 
                             class='skills-grid' 
                             ref={gridRefSoft}
@@ -151,7 +179,10 @@ export default function Skills() {
                         <img class="arrow" src={downArrow} alt="arrow" />
                     </div>
 
-                    <div class='other-skills-body skills-card-body' style={{display: otherDisplay()}}>
+                    <div
+                        class='other-skills-body skills-card-body skills-group-content'
+                        classList={{active: otherDisplay() !== "none"}}
+                    >
                         <div 
                             class='skills-grid' 
                             ref={gridRefOther}
