@@ -1,53 +1,78 @@
-import { onMount, onCleanup } from "solid-js";
+import { createSignal, onMount, onCleanup } from "solid-js";
 import './componentStyle/Skills.css';
 import { skills } from '../data/activitiesData';
 
+import downArrow from "../assets/down-arrow.svg";
+import upArrow from "../assets/up-arrow.svg";
+
 export default function Skills() {
-    let gridRef!: HTMLDivElement;
-    let isDown = false;
-    let startX: number;
-    let scrollLeft: number;
+    // States for Hard Skills (icon and show/hide)
+    const [hardIcon, setHardIcon] = createSignal(upArrow);
+    const [hardDisplay, setHardDisplay] = createSignal("none");
+
+    // States for Soft Skills
+    const [softIcon, setSoftIcon] = createSignal(upArrow);
+    const [softDisplay, setSoftDisplay] = createSignal("none");
+
+    // States for Other Skills
+    const [otherIcon, setOtherIcon] = createSignal(upArrow);
+    const [otherDisplay, setOtherDisplay] = createSignal("none");
+
+    // References for each scrollable grid
+    let gridRefHard!: HTMLDivElement;
+    let gridRefSoft!: HTMLDivElement;
+    let gridRefOther!: HTMLDivElement;
+
+    // Mouse drag and hover states for each grid
+    let isDownHard = false, startXHard = 0, scrollLeftHard = 0, isHoveredHard = false;
+    let isDownSoft = false, startXSoft = 0, scrollLeftSoft = 0, isHoveredSoft = false;
+    let isDownOther = false, startXOther = 0, scrollLeftOther = 0, isHoveredOther = false;
+
     let animationId: number;
-    let isHovered = false;
 
-    const handleMouseDown = (e: MouseEvent) => {
-        isDown = true;
-        gridRef.classList.add('active');
-        startX = e.pageX - gridRef.offsetLeft;
-        scrollLeft = gridRef.scrollLeft;
+    // Toggle functions for sections
+    const toggleHard = () => {
+        setHardIcon(hardIcon() === upArrow ? downArrow : upArrow);
+        setHardDisplay(hardDisplay() === "none" ? "flex" : "none");
     };
 
-    const handleMouseLeave = () => {
-        isDown = false;
-        gridRef.classList.remove('active');
-        isHovered = false;
+    const toggleSoft = () => {
+        setSoftIcon(softIcon() === upArrow ? downArrow : upArrow);
+        setSoftDisplay(softDisplay() === "none" ? "flex" : "none");
     };
 
-    const handleMouseUp = () => {
-        isDown = false;
-        gridRef.classList.remove('active');
+    const toggleOther = () => {
+        setOtherIcon(otherIcon() === upArrow ? downArrow : upArrow);
+        setOtherDisplay(otherDisplay() === "none" ? "flex" : "none");
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - gridRef.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        gridRef.scrollLeft = scrollLeft - walk;
-    };
-
-    const handleMouseEnter = () => {
-        isHovered = true;
-    };
-
+    // Auto-scroll loop for all grids
     onMount(() => {
         const step = () => {
-            if (!isDown && !isHovered && gridRef) {
-                gridRef.scrollLeft += 1;
-                if (gridRef.scrollLeft >= (gridRef.scrollWidth - gridRef.clientWidth)) {
-                    gridRef.scrollLeft = 0;
+            // Auto scroll Hard Skills if not dragging and not hovered
+            if (gridRefHard && !isDownHard && !isHoveredHard && hardDisplay() !== "none") {
+                gridRefHard.scrollLeft += 1;
+                if (gridRefHard.scrollLeft >= (gridRefHard.scrollWidth - gridRefHard.clientWidth)) {
+                    gridRefHard.scrollLeft = 0;
                 }
             }
+
+            // Auto scroll Soft Skills
+            if (gridRefSoft && !isDownSoft && !isHoveredSoft && softDisplay() !== "none") {
+                gridRefSoft.scrollLeft += 1;
+                if (gridRefSoft.scrollLeft >= (gridRefSoft.scrollWidth - gridRefSoft.clientWidth)) {
+                    gridRefSoft.scrollLeft = 0;
+                }
+            }
+
+            // Auto scroll Other Skills
+            if (gridRefOther && !isDownOther && !isHoveredOther && otherDisplay() !== "none") {
+                gridRefOther.scrollLeft += 1;
+                if (gridRefOther.scrollLeft >= (gridRefOther?.scrollWidth - gridRefOther?.clientWidth)) { // Fixed optional chaining safely below:
+                    gridRefOther.scrollLeft = 0;
+                }
+            }
+
             animationId = requestAnimationFrame(step);
         };
         animationId = requestAnimationFrame(step);
@@ -58,65 +83,113 @@ export default function Skills() {
     });
 
     return (
-         <section class='skills-section'>
+        <section class='skills-section'>
             <h2 class="section-title">My Skills</h2>
 
             <div class='skill-category'>
-                <div 
-                    class='skill-grid' 
-                    ref={gridRef}
-                    onMouseDown={handleMouseDown}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseUp={handleMouseUp}
-                    onMouseMove={handleMouseMove}
-                    onMouseEnter={handleMouseEnter}
-                >
-                    
-                    <div class='hard-skills skills-group'>
-                        <h3 class='skills-group-text'>Hard Skills</h3>
+                {/* 1. HARD SKILLS SECTION */}
+                <div class="skills-group hard-skills">
+                    <div
+                        class="skills-group-heading"
+                        onClick={toggleHard}
+                        classList={{active: hardDisplay() !== "none"}}
+                    >
+                        <h3>Hard Skills</h3>
+                        <img class="up-arrow" src={hardIcon()} alt="up arrow"/>
+                    </div>
+
+                    <div class='hard-skills-body skills-card-body' style={{display: hardDisplay()}}>
+                        <div 
+                            class='skills-grid' 
+                            ref={gridRefHard}
+                            onMouseDown={(e) => { isDownHard = true; gridRefHard.classList.add('active'); startXHard = e.pageX - gridRefHard.offsetLeft; scrollLeftHard = gridRefHard.scrollLeft; }}
+                            onMouseLeave={() => { isDownHard = false; gridRefHard.classList.remove('active'); isHoveredHard = false; }}
+                            onMouseUp={() => { isDownHard = false; gridRefHard.classList.remove('active'); }}
+                            onMouseMove={(e) => { if (!isDownHard) return; e.preventDefault(); const x = e.pageX - gridRefHard.offsetLeft; gridRefHard.scrollLeft = scrollLeftHard - (x - startXHard) * 1.5; }}
+                            onMouseEnter={() => { isHoveredHard = true; }}
+                        >
                             {skills.hardSkills.map((el) => (
                                 <div class='skill-card hard-skill'>
                                     <img src={el.icon} alt={el.skill} class='card-main-icon' />
                                     <h4>{el.skill}</h4>
                                     <h4>Technologies:</h4>
-                                    
                                     <ul class='technologies-list'>
-                                        {el.technologies.map((technology) => {
-                                            return (
-                                                <li class='technologies-item'>
-                                                    <i class={technology.icon}></i>
-                                                    <span>{technology.name}</span>
-                                                </li>
-                                            );
-                                        })}
+                                        {el.technologies.map((technology) => (
+                                            <li class='technologies-item'>
+                                                <i class={technology.icon}></i>
+                                                <span>{technology.name}</span>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* 2. SOFT SKILLS SECTION */}
+                <div class="skills-group soft-skills">
+                    <div
+                        class="skills-group-heading"
+                        onClick={toggleSoft}
+                        classList={{active: softDisplay() !== "none"}}
+                    >
+                        <h3>Soft Skills</h3>
+                        <img class="up-arrow" src={softIcon()} alt="up arrow"/>
                     </div>
 
-                    <div class='soft-skills skills-group'>
-                        <h3 class='skills-group-text'>Soft Skills</h3>
-                        {skills.softSkills.map((el) => (
-                            <div class='skill-card soft-skill'>
-                                <img src={el.icon} alt={el.skill} class='card-main-icon' />
-                                <h4>{el.skill}</h4>
-                            </div>
-                        ))}
+                    <div class='soft-skills-body skills-card-body' style={{display: softDisplay()}}>
+                        <div 
+                            class='skills-grid' 
+                            ref={gridRefSoft}
+                            onMouseDown={(e) => { isDownSoft = true; gridRefSoft.classList.add('active'); startXSoft = e.pageX - gridRefSoft.offsetLeft; scrollLeftSoft = gridRefSoft.scrollLeft; }}
+                            onMouseLeave={() => { isDownSoft = false; gridRefSoft.classList.remove('active'); isHoveredSoft = false; }}
+                            onMouseUp={() => { isDownSoft = false; gridRefSoft.classList.remove('active'); }}
+                            onMouseMove={(e) => { if (!isDownSoft) return; e.preventDefault(); const x = e.pageX - gridRefSoft.offsetLeft; gridRefSoft.scrollLeft = scrollLeftSoft - (x - startXSoft) * 1.5; }}
+                            onMouseEnter={() => { isHoveredSoft = true; }}
+                        >
+                            {skills.softSkills.map((el) => (
+                                <div class='skill-card soft-skill'>
+                                    <img src={el.icon} alt={el.skill} class='card-main-icon' />
+                                    <h4>{el.skill}</h4>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* 3. OTHER SKILLS SECTION */}
+                <div class="skills-group other-skills">
+                    <div
+                        class="skills-group-heading"
+                        onClick={toggleOther}
+                        classList={{active: otherDisplay() !== "none"}}
+                    >
+                        <h3>Other Skills</h3>
+                        <img class="up-arrow" src={otherIcon()} alt="up arrow"/>
                     </div>
 
-                    <div class='other-skills skills-group'>
-                        <h3 class='skills-group-text'>Other Skills</h3>
-                        {skills.others.map((el) => (
-                            <div class='skill-card other-skill'>
-                                <img src={el.icon} alt={el.skill} class='card-main-icon' />
-                                <h4>{el.skill}</h4>
-                                <p>{el.details}</p>
-                            </div>
-                        ))}
+                    <div class='other-skills-body skills-card-body' style={{display: otherDisplay()}}>
+                        <div 
+                            class='skills-grid' 
+                            ref={gridRefOther}
+                            onMouseDown={(e) => { isDownOther = true; gridRefOther.classList.add('active'); startXOther = e.pageX - gridRefOther.offsetLeft; scrollLeftOther = gridRefOther.scrollLeft; }}
+                            onMouseLeave={() => { isDownOther = false; gridRefOther.classList.remove('active'); isHoveredOther = false; }}
+                            onMouseUp={() => { isDownOther = false; gridRefOther.classList.remove('active'); }}
+                            onMouseMove={(e) => { if (!isDownOther) return; e.preventDefault(); const x = e.pageX - gridRefOther.offsetLeft; gridRefOther.scrollLeft = scrollLeftOther - (x - startXOther) * 1.5; }}
+                            onMouseEnter={() => { isHoveredOther = true; }}
+                        >
+                            {skills.others.map((el) => (
+                                <div class='skill-card other-skill'>
+                                    <img src={el.icon} alt={el.skill} class='card-main-icon' />
+                                    <h4>{el.skill}</h4>
+                                    <p>{el.details}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
                 </div>
             </div>
-         </section>
+        </section>
     );
 }
