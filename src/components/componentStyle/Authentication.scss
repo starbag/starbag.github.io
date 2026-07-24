@@ -1,0 +1,136 @@
+@import './theme';
+
+.authBox {
+    width: 100%;
+    opacity: 0;
+    transform: translateY(-10px);
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    pointer-events: none;
+    border-radius: 10px;
+    @include miami-glass(rgba($miami-cyan, 0.4), 15px);
+    @include gpu-accelerate;
+
+    > * {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+        background: transparent;
+        padding: 20px;
+        box-sizing: border-box;
+
+        .fields {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+
+            .field {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                background: rgba($miami-purple-deep, 0.6);
+                border: 1px solid rgba($miami-pink, 0.3);
+                border-radius: 6px;
+                padding: 10px;
+                box-shadow: 0 0 10px rgba($miami-pink, 0.1);
+                transition: border-color 0.2s ease;
+
+                &:focus-within {
+                    border-color: $miami-cyan;
+                    box-shadow: 0 0 15px rgba($miami-cyan, 0.3);
+                }
+
+                label {
+                    color: $text-light;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                }
+
+                input {
+                    width: 100%;
+                    background: rgba($miami-purple-dark, 0.8);
+                    border: 1px solid rgba($miami-yellow, 0.3);
+                    border-radius: 4px;
+                    padding: 8px;
+                    color: $text-white;
+                    outline: none;
+                    box-sizing: border-box;
+
+                    &:focus {
+                        border-color: $miami-yellow;
+                        box-shadow: 0 0 8px rgba($miami-yellow, 0.4);
+                    }
+                }
+            }
+        }
+    }
+
+    .submit-btn {
+        text-align: center;
+        border: none;
+        border-radius: 6px;
+        padding: 10px;
+        background: $gradient-badge;
+        color: $text-white;
+        cursor: pointer;
+        font-weight: bold;
+        letter-spacing: 1px;
+        box-shadow: 0 0 15px rgba($miami-pink-neon, 0.4);
+        transition: transform .2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+
+        &:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba($miami-cyan, 0.6);
+            background: linear-gradient(135deg, $miami-pink-neon 0%, $miami-cyan 100%);
+        }
+    }
+}
+
+.authBox.active {
+    opacity: 1;
+    transform: translateY(0);
+    grid-template-rows: 1fr;
+    pointer-events: auto;
+}
+
+.modes {
+    text-align: center;
+    cursor: pointer;
+    color: $text-cream;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+
+    span {
+        transition: color 0.2s ease;
+        &:hover {
+            color: $miami-cyan;
+            text-shadow: 0 0 8px rgba($miami-cyan, 0.6);
+        }
+    }
+}
+
+.activeText {
+    background: rgba($miami-pink, 0.2);
+    border: 1px solid $miami-pink-neon;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: $miami-yellow;
+    text-shadow: 0 0 5px rgba($miami-pink, 0.8);
+    box-shadow: 0 0 10px rgba($miami-pink, 0.3);
+}
